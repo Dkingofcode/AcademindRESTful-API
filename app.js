@@ -20,6 +20,8 @@ mongoose.connect(
      console.log('Error connecting to MongoDB Atlas', error)
   });
 
+ mongoose.Promise = global.Promise; 
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
