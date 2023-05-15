@@ -8,11 +8,17 @@ const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
 mongoose.connect(
-  "mongodb+srv://kdavidmongoose2001A:xLFeRm1DZPJUixyC@cluster0.xdmae.mongodb.net/nodeAPIDB?retryWrites=true&w=majority",
+  "mongodb+srv://kdavidmongoose2001A:" + process.env.MONGO_ATLAS_PW + "@cluster0.xdmae.mongodb.net/nodeAPIDB?retryWrites=true&w=majority",
   {
-    useMongoClient: true
-  }
-);
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+
+  }).then(() => {
+    console.log('Connected to MongoDB Atlas')
+    // COntinue with your application logic
+  }).catch((error) => {
+     console.log('Error connecting to MongoDB Atlas', error)
+  });
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));

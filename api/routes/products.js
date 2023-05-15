@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
 const Product = require("../models/product");
 
@@ -29,16 +30,7 @@ router.post('/', (req, res, next) => {
 
 router.get('/:productId', (req, res, next) => {
    const id = req.params.productId;
-   if(id === 'special'){
-      res.status(200).json({
-         message: 'You discovered the special ID',
-         id: id
-      });
-   } else{
-       res.status(200).json({
-         message: 'You passed an ID'
-       });
-   }
+   Product.findById(id).exec().then().catch();
 }); 
 
 router.patch('/:productId', (req, res, next) => {
