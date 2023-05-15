@@ -15,7 +15,7 @@ mongoose.connect(
 
   }).then(() => {
     console.log('Connected to MongoDB Atlas')
-    // COntinue with your application logic
+    // Continue with your application logic
   }).catch((error) => {
      console.log('Error connecting to MongoDB Atlas', error)
   });
