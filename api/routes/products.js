@@ -2,9 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
-const upload = multer({storage: storage, limits: {
-   fileSize: 1024 * 1024 * 5
-}});
 
 const storage = multer.diskStorage({
    destination: function(req, file, cb){
@@ -14,6 +11,11 @@ const storage = multer.diskStorage({
       cb(null, new Date().toISOString() + file.originalname)
    }
 })
+
+const upload = multer({storage: storage, limits: {
+   fileSize: 1024 * 1024 * 5
+}});
+
 
 const fileFilter = (req, file, cb) => {
    // reject a file
