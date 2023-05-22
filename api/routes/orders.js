@@ -4,34 +4,11 @@ const mongoose = require('mongoose');
 
 const Order = require('../models/order');
 const Product = require('../models/product');
-
+import OrdersCOntroller from "../controlllers/orders";
 
 // Handle incoming GET requests to /orders
-router.get('/', (req, res, next) => {
-    Order.find().select('product quantity _id').populate('product')
-    .exec().then(docs => {
-        res.status(200).json({
-           count: docs.length,
-           orders: docs.map(doc => {
-             return {
-                _id: doc._id,
-                product: doc.product,
-                quantity: doc.quantity,
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:3000/orders' + doc._id
-                 }
-             }
-           })
-           
-        });
-    }).catch(err => {
-        res.status(500).json({
-            error: err
-        });
-    });
-});
-
+router.get('/', )
+    
 router.post('/', (req, res, next) => {
     Product.findById(req.body.productId)
     .then(product => {
