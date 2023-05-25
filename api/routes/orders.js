@@ -4,11 +4,13 @@ const mongoose = require('mongoose');
 
 const Order = require('../models/order');
 const Product = require('../models/product');
-import OrdersCOntroller from "../controlllers/orders";
+//import OrdersController from "../controlllers/orders";
 
 // Handle incoming GET requests to /orders
-router.get('/', )
+// router.get('/', OrdersController.orders_get_all);
     
+// router.post()
+
 router.post('/', (req, res, next) => {
     Product.findById(req.body.productId)
     .then(product => {
