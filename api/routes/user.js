@@ -52,36 +52,39 @@ router.post('/login', (req, res, next) => {
         message: 'Auth failed'
       });
     }
-    bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-      if(err){
-        return res.status(401).json({
-          message: 'Auth failed'
-        });
-      }
-      if(result){
-        const token = jwt.sign(
-          {
-          email: user[0].email,
-          userId: user[0]._id
-        }, 
-        process.env.JWT_KEY, 
-        {
-          expiresIn: "1h"
+     if(user && user[0] && user[0].password){
+      bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+        if(err){
+          return res.status(401).json({
+            message: 'Auth failed'
+          });
         }
-        );
-        return res.status(200).json({
-          message: 'Auth successful',
-          token: token
+        if(result){
+          const token = jwt.sign(
+            {
+            email: user[0].email,
+            userId: user[0]._id
+          }, 
+          process.env.JWT_KEY, 
+          {
+            expiresIn: "1h"
+          }
+          );
+          return res.status(200).json({
+            message: 'Auth successful',
+            token: token
+          });
+        }
+        res.status(400).json({
+          message: "Auth failed"
         });
-      }
-      res.status(400).json({
-        message: "Auth failed"
-      });
-    })
-  }).catch()
-});
-
-
+      })
+    }
+    }).catch()
+  });
+  
+    
+    
 router.delete("/:userId", (req, res, next) => {
   User.findByIdAndRemove({ _id: req.params.userId }).exec().then(result => {
     res.status(200).json({
